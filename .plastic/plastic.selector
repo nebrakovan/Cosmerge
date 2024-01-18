@@ -1,0 +1,4 @@
+repository "Cosmerge@Palbats@cloud"
+  path "/"
+    br "/main"
+    co "/main"
