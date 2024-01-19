@@ -6,59 +6,60 @@ using UnityEngine.SceneManagement;
 
 public class ObjectController : MonoBehaviour
 {
-    [SerializeField]
-    private GameObject combinedObjectPrefab; // Префаб объединенного объекта
+    [Header("Префаб объекта, который будет создаваться после слияния")]
+    [SerializeField] private GameObject mergedObjectPrefab; // Сборная конструкция объединенного объекта
+
+    [Header("Индекс этого объекта и последнего")]
+    [SerializeField] private int maxIndex; // Максимальный индекс
     public int objectIndex; // Индекс объекта
-    public bool isCombining = false; // Флаг, указывающий на процесс слияния
-    [SerializeField]
-    private int maxIndex; // Максимальный индекс объекта, который не может быть объединен
+
+    [HideInInspector] public bool isMerging = false; // Происходит слияние
 
     void OnCollisionEnter2D(Collision2D collision)
     {
         ObjectController otherObjectController = collision.gameObject.GetComponent<ObjectController>();
 
-        if (CanCombineWith(otherObjectController))
+        if (CanMergeWith(otherObjectController))
         {
-            StartCombining();
-            otherObjectController.StartCombining();
-            CombineObjects(collision.gameObject, otherObjectController);
+            StartMerging();
+            otherObjectController.StartMerging();
+            MergeObjects(collision.gameObject, otherObjectController);
         }
     }
 
-    private bool CanCombineWith(ObjectController otherObjectController)
+    private bool CanMergeWith(ObjectController otherObjectController) // Может объединяться с..
     {
-        // Проверка, можно ли объединиться с другим объектом
         return otherObjectController != null &&
                objectIndex == otherObjectController.objectIndex &&
-               objectIndex < maxIndex && // Проверка, что индекс не максимальный
-               !isCombining &&
-               !otherObjectController.isCombining;
+               objectIndex < maxIndex &&
+               !isMerging &&
+               !otherObjectController.isMerging;
     }
 
-    private void StartCombining()
+    private void StartMerging() // Начать слияние
     {
-        isCombining = true;
+        isMerging = true;
     }
 
-    private void CombineObjects(GameObject otherObject, ObjectController otherObjectController)
+    private void MergeObjects(GameObject otherObject, ObjectController otherObjectController) // Объединить объекты
     {
         Vector3 spawnPosition = (transform.position + otherObject.transform.position) / 2;
-        int nextIndex = objectIndex + 1; // Определение индекса для нового объекта
+        int nextIndex = objectIndex + 1;
 
         ScoreManager.Instance.AddScore(5, spawnPosition);
 
-        GameObject combinedObject = ObjectPool.Instance.GetObject(nextIndex);
-        ObjectController combinedObjectController = combinedObject.GetComponent<ObjectController>();
-        combinedObjectController.isCombining = false;
+        GameObject mergedObject = ObjectPool.Instance.GetObject(nextIndex);
+        ObjectController mergedObjectController = mergedObject.GetComponent<ObjectController>();
+        mergedObjectController.isMerging = false;
 
-        combinedObject.transform.position = spawnPosition;
-        ActivateObject(combinedObject);
+        mergedObject.transform.position = spawnPosition;
+        ActivateObject(mergedObject);
 
         DeactivateAndReturnObject(this);
         DeactivateAndReturnObject(otherObjectController);
     }
 
-    private void ActivateObject(GameObject obj)
+    private void ActivateObject(GameObject obj) // Активировать объект
     {
         var rb = obj.GetComponent<Rigidbody2D>();
         var collider = obj.GetComponent<CircleCollider2D>();
@@ -67,7 +68,7 @@ public class ObjectController : MonoBehaviour
         obj.SetActive(true);
     }
 
-    private void DeactivateAndReturnObject(ObjectController objController)
+    private void DeactivateAndReturnObject(ObjectController objController) // Деактивировать и вернуть объект
     {
         var gameObject = objController.gameObject;
         var rb = gameObject.GetComponent<Rigidbody2D>();

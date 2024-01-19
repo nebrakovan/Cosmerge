@@ -8,14 +8,13 @@ using UnityEngine.UI;
 public class PlayerController : MonoBehaviour
 {
     [Header("Массив для объектов, которые будут спавниться")]
-    [Tooltip("На самом деле этот массив нужен только для рассчета веса и отображения следующего объекта")]
     [SerializeField] private GameObject[] objects; // Объекты
 
     [Header("Ограничение места спавна")]
     [SerializeField] private Vector2 objectSpawnXClamp = new Vector2(-5f, 5f); // Зажим X для создания объекта
     [SerializeField] private Vector2 objectSpawnYZ = new Vector2(0f, 0f); // Зажим Y для создания объекта
 
-    [Header("Картинка для отображения следующего объекта для спавна")]
+    [Header("Картинка для отображения следующего объекта")]
     [SerializeField] private Image nextObjectImage;// Изображение следующего объекта
 
     [Header("Настройки спавна")]
@@ -39,12 +38,12 @@ public class PlayerController : MonoBehaviour
     {
         InitializeObjectWeights();
         SelectRandomObject();
-        UpdateNextObjectView();
+        UpdateNextObjectDisplay();
 
         mainCamera = Camera.main;
     }
 
-    private void InitializeObjectWeights()
+    private void InitializeObjectWeights() // Инициализировать веса объектов
     {
         int halfLength = objects.Length - excludedObjectsToSpawn;
         weights = new float[halfLength];
@@ -78,7 +77,7 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    private void SpawnObject()
+    private void SpawnObject() // Создание объекта
     {
         spawnPosition = GetObjectSpawnPosition();
         currentObject = ObjectPool.Instance.GetObject(selectedIndex);
@@ -86,16 +85,16 @@ public class PlayerController : MonoBehaviour
         currentObject.SetActive(true);
 
         ObjectController currentObjectController = currentObject.GetComponent<ObjectController>();
-        currentObjectController.isCombining = false;
+        currentObjectController.isMerging = false;
 
         SelectRandomObject();
-        UpdateNextObjectView();
+        UpdateNextObjectDisplay();
 
         canSpawnNext = false;
         StartCoroutine(EnableSpawnAfterDelay());
     }
 
-    private Vector3 GetObjectSpawnPosition()
+    private Vector3 GetObjectSpawnPosition() // Получить поизицию для создания
     {
         Vector3 mousePos = mainCamera.ScreenToWorldPoint(Input.mousePosition);
         mousePos.x = Mathf.Clamp(mousePos.x, objectSpawnXClamp.x, objectSpawnXClamp.y);
@@ -104,13 +103,13 @@ public class PlayerController : MonoBehaviour
         return mousePos;
     }
 
-    private void MoveObjectToCursor()
+    private void MoveObjectToCursor() // Переместить объект к курсору
     {
         Vector3 currentMousePos = GetObjectSpawnPosition();
         currentObject.transform.position = Vector3.MoveTowards(currentObject.transform.position, currentMousePos, objectMoveSpeed * Time.deltaTime);
     }
 
-    private void ActivateObjectPhysics()
+    private void ActivateObjectPhysics() // Активировать физику объекта
     {
         Rigidbody2D rb = currentObject.GetComponent<Rigidbody2D>();
         rb.bodyType = RigidbodyType2D.Dynamic;
@@ -120,13 +119,13 @@ public class PlayerController : MonoBehaviour
         currentObject = null;
     }
 
-    private IEnumerator EnableSpawnAfterDelay()
+    private IEnumerator EnableSpawnAfterDelay() // Включить создание после задержки
     {
         yield return new WaitForSeconds(spawnDelay);
         canSpawnNext = true;
     }
 
-    private void SelectRandomObject()
+    private void SelectRandomObject() // Выбрать случайный объект
     {
         float randomValue = Random.value * totalWeight;
         float currentSum = 0;
@@ -137,7 +136,7 @@ public class PlayerController : MonoBehaviour
         nextObjectSpriteRenderer = nextObject.GetComponent<SpriteRenderer>();
     }
 
-    private void UpdateNextObjectView()
+    private void UpdateNextObjectDisplay() // Обновить отображение следующего объекта
     {
         nextObjectImage.sprite = nextObjectSpriteRenderer.sprite;
         nextObjectImage.color = nextObjectSpriteRenderer.color;

@@ -8,26 +8,27 @@ public class ScoreManager : MonoBehaviour
 {
     public static ScoreManager Instance;
 
-    public TMP_Text scoreText; // Текстовое поле для отображения счета
-    public TMP_Text highScoreText; // Текстовое поле для отображения рекорда
+    [Header("Текст для отображения счета")]
+    [SerializeField] private TMP_Text scoreText; // Текст счета
+    [SerializeField] private TMP_Text highScoreText; // Текста для редактора
 
-    public GameObject canvas; // Ссылка на Canvas
+    [Header("Префаб временного счета и место, где будет храниться его пул")]
+    [SerializeField] private TMP_Text tempScoreTextPrefab; // Префаб временного счета
+    [SerializeField] private GameObject canvasPoolLocation; // Место храрнения пула в канвасе
 
-
-    public TMP_Text tempScoreTextPrefab; // Префаб для временного счета
-    [SerializeField]private List<TMP_Text> tempScoreTextPool = new List<TMP_Text>();
-
-    private int score = 0;
-    private int highScore = 0;
-    private int comboMultiplier = 1; // Множитель для комбо
-    private int pendingScore = 0; // Накопленные очки, ожидающие добавления к счету
-    private float comboTimer = 0f; // Таймер для комбо
-    private float comboTimeLimit = 2f; // Время для комбо (в секундах)
+    [Header("Максимальный множеитель для комбо")]
     [SerializeField] private int maxComboMultiplier = 10; // Максимальное значение множителя комбо
+
+    private List<TMP_Text> tempScoreTextPool = new List<TMP_Text>(); // Пул текста временного счета
+
+    private int score = 0; // Счет
+    private int highScore = 0; // Рекорд
+    private int comboMultiplier = 1; // Множитель комбо
+    private float comboTimer = 0f; // Таймер для комбо
+    private float comboTimeLimit = 2f; // Время для комбо
 
     void Awake()
     {
-        // Проверка на существование других экземпляров ObjectPool
         if (Instance != null && Instance != this)
         {
             Destroy(gameObject);
@@ -46,13 +47,12 @@ public class ScoreManager : MonoBehaviour
             comboTimer -= Time.deltaTime;
             if (comboTimer <= 0)
             {
-                pendingScore = 0; // Сброс накопленных очков
-                comboMultiplier = 1; // Сброс множителя комбо
+                comboMultiplier = 1; 
             }
         }
     }
 
-    public void AddScore(int points, Vector3 position)
+    public void AddScore(int points, Vector3 position) // Добавить счет
     {
         TMP_Text tempScoreText = GetAvailableTempScoreText();   
 
@@ -67,8 +67,7 @@ public class ScoreManager : MonoBehaviour
         // Запускаем корутину, которая дождется окончания анимации
         StartCoroutine(WaitForAnimationToEnd(tempScoreText, tempScoreAnimator));
 
-        pendingScore += points * comboMultiplier; // Умножаем очки на текущий множитель
-        score += pendingScore;
+        score += points * comboMultiplier;
         UpdateScoreText();
 
         // Проверка на новый рекорд
@@ -83,7 +82,7 @@ public class ScoreManager : MonoBehaviour
         comboTimer = comboTimeLimit; // Сброс таймера комбо
     }
 
-    private IEnumerator WaitForAnimationToEnd(TMP_Text tempScoreText, Animator tempScoreAnimator)
+    private IEnumerator WaitForAnimationToEnd(TMP_Text tempScoreText, Animator tempScoreAnimator) // Дождаться конца анимации
     {
         // Ожидание завершения анимации
         yield return new WaitWhile(() => tempScoreAnimator.GetCurrentAnimatorStateInfo(0).normalizedTime < 1f);
@@ -96,7 +95,7 @@ public class ScoreManager : MonoBehaviour
         tempScoreText.gameObject.SetActive(false);
     }
 
-    private TMP_Text GetAvailableTempScoreText()
+    private TMP_Text GetAvailableTempScoreText() // Получите доступный текст временного счета
     {
         foreach (TMP_Text text in tempScoreTextPool)
         {
@@ -106,55 +105,29 @@ public class ScoreManager : MonoBehaviour
             }
         }
 
-        // Все экземпляры активны, создаем новый
-        TMP_Text newText = Instantiate(tempScoreTextPrefab, canvas.transform);
+        TMP_Text newText = Instantiate(tempScoreTextPrefab, canvasPoolLocation.transform);
         tempScoreTextPool.Add(newText);
         return newText;
     }
 
-   /* private void ApplyComboScore()
-    {
-        score += pendingScore; // Добавляем накопленные очки к счету
-        UpdateScoreText();
-
-        // Проверка на новый рекорд
-        if (score > highScore)
-        {
-            highScore = score;
-            UpdateHighScoreText();
-            SaveHighScore();
-        }
-
-        pendingScore = 0; // Сброс накопленных очков
-        comboMultiplier = 1; // Сброс множителя комбо
-    }*/
-
-    private void UpdateScoreText()
+    private void UpdateScoreText() // Обновить текст счета
     {
         scoreText.text = "Score: " + score;
     }
 
-    private void UpdateHighScoreText()
+    private void UpdateHighScoreText() // Обновить текст рекорда
     {
         highScoreText.text = "High Score: " + highScore;
     }
 
-    private void LoadHighScore()
+    private void LoadHighScore() // Загрузить рекорд
     {
         highScore = PlayerPrefs.GetInt("HighScore", 0);
         UpdateHighScoreText();
     }
 
-    private void SaveHighScore()
+    private void SaveHighScore() // Сохранить рекорд
     {
         PlayerPrefs.SetInt("HighScore", highScore);
-    }
-
-    public void ResetScore()
-    {
-        score = 0;
-        pendingScore = 0;
-        comboMultiplier = 1;
-        UpdateScoreText();
     }
 }

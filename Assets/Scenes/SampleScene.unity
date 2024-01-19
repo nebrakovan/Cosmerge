@@ -941,7 +941,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   scoreText: {fileID: 1847092760}
   highScoreText: {fileID: 1918174239}
-  canvas: {fileID: 2039306415}
+  canvasPoolLocation: {fileID: 2039306415}
   tempScoreTextPrefab: {fileID: 8577243907692852912, guid: cc5d2acff6bb5ac4d8e589faac6c4229, type: 3}
   tempScoreTextPool: []
   maxComboMultiplier: 5

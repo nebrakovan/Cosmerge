@@ -6,16 +6,16 @@ public class ObjectPool : MonoBehaviour
 {
     public static ObjectPool Instance;
 
-    [SerializeField]
-    private GameObject[] objectPrefabs; // Массив префабов объектов
-    [SerializeField]
-    private int[] initialPoolSize; // Начальный размер для каждого пула объектов
+    [Header("Префабы создаваемых объектов")]
+    [SerializeField] private GameObject[] objectPrefabs; // Префабы объектов
+
+    [Header("Размеры пулов каждого объекта")]
+    [SerializeField] private int[] initialPoolSize; // Начальный размер пула 
 
     private Dictionary<int, Queue<GameObject>> objectPools = new Dictionary<int, Queue<GameObject>>();
 
     void Awake()
     {
-        // Проверка на существование других экземпляров ObjectPool
         if (Instance != null && Instance != this)
         {
             Destroy(gameObject);
@@ -26,18 +26,18 @@ public class ObjectPool : MonoBehaviour
         InitializePools();
     }
 
-    private void InitializePools()
+    private void InitializePools() // Инициализировать пулы
     {
         for (int i = 0; i < objectPrefabs.Length; i++)
         {
             objectPools[i] = new Queue<GameObject>();
 
-            int poolSize = i < initialPoolSize.Length ? initialPoolSize[i] : 10; // Установка размера пула
+            int poolSize = i < initialPoolSize.Length ? initialPoolSize[i] : 10;
             AddObjectsToPool(i, poolSize);
         }
     }
 
-    public GameObject GetObject(int index)
+    public GameObject GetObject(int index) // Получить объект
     {
         if (!objectPools.ContainsKey(index))
         {
@@ -53,7 +53,7 @@ public class ObjectPool : MonoBehaviour
         return objectPools[index].Dequeue();
     }
 
-    private void AddObjectsToPool(int index, int count)
+    private void AddObjectsToPool(int index, int count) // Добавить объекты в пулл
     {
         for (int i = 0; i < count; i++)
         {
@@ -63,7 +63,7 @@ public class ObjectPool : MonoBehaviour
         }
     }
 
-    public void ReturnObject(GameObject obj, int index)
+    public void ReturnObject(GameObject obj, int index) // Вернуть объект
     {
         obj.SetActive(false);
         if (!objectPools.ContainsKey(index))
