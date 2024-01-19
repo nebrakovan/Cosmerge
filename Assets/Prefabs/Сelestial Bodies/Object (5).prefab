@@ -162,6 +162,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   combinedObjectPrefab: {fileID: 0}
-  objectIndex: 0
+  objectIndex: 5
   isCombining: 0
   maxIndex: 5

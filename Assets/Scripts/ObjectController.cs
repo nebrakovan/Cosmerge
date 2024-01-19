@@ -48,6 +48,9 @@ public class ObjectController : MonoBehaviour
         ScoreManager.Instance.AddScore(5, spawnPosition);
 
         GameObject combinedObject = ObjectPool.Instance.GetObject(nextIndex);
+        ObjectController combinedObjectController = combinedObject.GetComponent<ObjectController>();
+        combinedObjectController.isCombining = false;
+
         combinedObject.transform.position = spawnPosition;
         ActivateObject(combinedObject);
 

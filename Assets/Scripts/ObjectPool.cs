@@ -22,6 +22,7 @@ public class ObjectPool : MonoBehaviour
             return;
         }
         Instance = this;
+
         InitializePools();
     }
 
@@ -56,7 +57,7 @@ public class ObjectPool : MonoBehaviour
     {
         for (int i = 0; i < count; i++)
         {
-            GameObject obj = Instantiate(objectPrefabs[index]);
+            GameObject obj = Instantiate(objectPrefabs[index], transform);
             obj.SetActive(false);
             objectPools[index].Enqueue(obj);
         }
