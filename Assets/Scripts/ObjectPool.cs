@@ -14,7 +14,7 @@ public class ObjectPool : MonoBehaviour
 
     private Dictionary<int, Queue<GameObject>> objectPools = new Dictionary<int, Queue<GameObject>>();
 
-    void Awake()
+    private void Awake()
     {
         if (Instance != null && Instance != this)
         {

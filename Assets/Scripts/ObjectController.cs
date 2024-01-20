@@ -21,8 +21,9 @@ public class ObjectController : MonoBehaviour
 
         if (CanCombineWith(otherObjectController))
         {
-            StartCombining();
-            otherObjectController.StartCombining();
+            isCombining = true;
+            otherObjectController.isCombining = true;
+
             CombineObjects(collision.gameObject, otherObjectController);
         }
     }
@@ -34,11 +35,6 @@ public class ObjectController : MonoBehaviour
                objectIndex < maxIndex &&
                !isCombining &&
                !otherObjectController.isCombining;
-    }
-
-    private void StartCombining() // Начать объединение
-    {
-        isCombining = true;
     }
 
     private void CombineObjects(GameObject otherObject, ObjectController otherObjectController) // Объединить объекты

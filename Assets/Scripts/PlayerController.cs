@@ -34,7 +34,7 @@ public class PlayerController : MonoBehaviour
     private bool canSpawnNext = true; //Может создать следующий
 
 
-    void Awake()
+    private void Awake()
     {
         InitializeObjectWeights();
         SelectRandomObject();
@@ -58,6 +58,11 @@ public class PlayerController : MonoBehaviour
 
     private void Update()
     {
+        if (currentObject == null && Input.GetMouseButtonDown(0) && canSpawnNext)
+        {
+            SpawnObject();
+        }
+
         if (currentObject != null)
         {
             if (Input.GetMouseButton(0))
@@ -69,11 +74,6 @@ public class PlayerController : MonoBehaviour
             {
                 ActivateObjectPhysics();
             }
-        }
-
-        if (currentObject == null && Input.GetMouseButtonDown(0) && canSpawnNext)
-        {
-            SpawnObject();
         }
     }
 
@@ -103,22 +103,6 @@ public class PlayerController : MonoBehaviour
         return mousePos;
     }
 
-    private void MoveObjectToCursor() // Переместить объект к курсору
-    {
-        Vector3 currentMousePos = GetObjectSpawnPosition();
-        currentObject.transform.position = Vector3.MoveTowards(currentObject.transform.position, currentMousePos, objectMoveSpeed * Time.deltaTime);
-    }
-
-    private void ActivateObjectPhysics() // Активировать физику объекта
-    {
-        Rigidbody2D rb = currentObject.GetComponent<Rigidbody2D>();
-        rb.bodyType = RigidbodyType2D.Dynamic;
-        CircleCollider2D collider = currentObject.GetComponent<CircleCollider2D>();
-        collider.enabled = true;
-
-        currentObject = null;
-    }
-
     private IEnumerator EnableSpawnAfterDelay() // Включить создание после задержки
     {
         yield return new WaitForSeconds(spawnDelay);
@@ -141,4 +125,26 @@ public class PlayerController : MonoBehaviour
         nextObjectImage.sprite = nextObjectSpriteRenderer.sprite;
         nextObjectImage.color = nextObjectSpriteRenderer.color;
     }
+
+    private void MoveObjectToCursor() // Переместить объект к курсору
+    {
+        Vector3 currentMousePos = GetObjectSpawnPosition();
+        currentObject.transform.position = Vector3.MoveTowards(currentObject.transform.position, currentMousePos, objectMoveSpeed * Time.deltaTime);
+    }
+
+    private void ActivateObjectPhysics() // Активировать физику объекта
+    {
+        Rigidbody2D rb = currentObject.GetComponent<Rigidbody2D>();
+        rb.bodyType = RigidbodyType2D.Dynamic;
+        CircleCollider2D collider = currentObject.GetComponent<CircleCollider2D>();
+        collider.enabled = true;
+
+        currentObject = null;
+    }
+
+  
+
+   
+
+  
 }

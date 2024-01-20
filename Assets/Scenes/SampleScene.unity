@@ -288,7 +288,7 @@ BoxCollider2D:
   m_GameObject: {fileID: 531873738}
   m_Enabled: 1
   m_Density: 1
-  m_Material: {fileID: 6200000, guid: 4a9db921def7a394a9ec5df608b6d30d, type: 2}
+  m_Material: {fileID: 6200000, guid: feaa6e169cc1a774889e85afc8c03c51, type: 2}
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0
@@ -853,7 +853,7 @@ BoxCollider2D:
   m_GameObject: {fileID: 1357187575}
   m_Enabled: 1
   m_Density: 1
-  m_Material: {fileID: 6200000, guid: 4a9db921def7a394a9ec5df608b6d30d, type: 2}
+  m_Material: {fileID: 6200000, guid: feaa6e169cc1a774889e85afc8c03c51, type: 2}
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0
@@ -1326,6 +1326,7 @@ GameObject:
   - component: {fileID: 1968795365}
   - component: {fileID: 1968795366}
   - component: {fileID: 1968795367}
+  - component: {fileID: 1968795368}
   m_Layer: 0
   m_Name: Container Boundary
   m_TagString: Untagged
@@ -1405,16 +1406,26 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ec31f778984dc304c99f22db2864c744, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  raycastOrigin: {fileID: 0}
-  raycastLength: 10
-  timeToLose: 5
   objectLayer:
     serializedVersion: 2
-    m_Bits: 0
-  currentBorders: {x: 0, y: 0}
+    m_Bits: 8
+  timeToLose: 3
+  currentBorders: {x: 10, y: 9}
   currentPosition: {x: 0, y: 0}
-  boundaryObject: {fileID: 0}
+  boundaryObject: {fileID: 1968795362}
   isOutside: 0
+--- !u!114 &1968795368
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1968795362}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 46f104c5c208ea644b0ad02fa894cad7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &2039306415
 GameObject:
   m_ObjectHideFlags: 0
@@ -1492,7 +1503,7 @@ BoxCollider2D:
   m_GameObject: {fileID: 2116644793}
   m_Enabled: 1
   m_Density: 1
-  m_Material: {fileID: 6200000, guid: 4a9db921def7a394a9ec5df608b6d30d, type: 2}
+  m_Material: {fileID: 6200000, guid: feaa6e169cc1a774889e85afc8c03c51, type: 2}
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0

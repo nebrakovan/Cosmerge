@@ -4,13 +4,13 @@
 TagManager:
   serializedVersion: 2
   tags:
-  - Inside
-  - Outside
+  - Enabled
+  - Disabled
   layers:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - 
+  - Object
   - Water
   - UI
   - 

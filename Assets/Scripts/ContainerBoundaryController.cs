@@ -7,20 +7,24 @@ public class ContainerBoundaryController : MonoBehaviour
 {
     public static ContainerBoundaryController Instance { get; private set; }
 
-    [SerializeField] private LayerMask objectLayer;
+    [Header("Объект с границами")]
+    [SerializeField] private GameObject boundaryObject; // Объект границ
 
-    [SerializeField] private float timeToLose = 5f;
+    [Header("Настройки границ емкости")]
+    [SerializeField] private Vector2 currentBorders; // Текущие границы
+    [SerializeField] private Vector2 currentBordersPosition; // Текущая позиция границ
 
-    private float timer = 0f;
+    [Header("Слой игрового объекта")]
+    [SerializeField] private LayerMask objectLayer; // Слой объекта
 
-    [SerializeField] private Vector2 currentBorders;
-    [SerializeField] private Vector2 currentPosition;
+    [Header("Время для проигрыша")]
+    [SerializeField] private float timeToLose = 5f; // Время для проигрыша
 
-    [SerializeField] private GameObject boundaryObject;
-    private BoxCollider2D boundaryCollider;
+    private HashSet<Collider2D> outsideObjects = new HashSet<Collider2D>(); // Объекты снаружи
+    private BoxCollider2D boundaryCollider; // Коллайдер границ
 
-    [SerializeField] private bool isOutside = false;
-    private HashSet<Collider2D> outsideObjects = new HashSet<Collider2D>();
+    private float timer = 0f; // Таймер
+    private bool isOutside = false; // Снаружи
 
     private void Awake()
     {
@@ -37,11 +41,11 @@ public class ContainerBoundaryController : MonoBehaviour
             boundaryCollider = boundaryObject.AddComponent<BoxCollider2D>();
         }
 
-        SetBoundaryPositionAndSize(currentPosition, currentBorders);
+        SetBoundaryPositionAndSize(currentBordersPosition, currentBorders);
 
     }
 
-    void Update()
+    private void Update()
     {
         if (isOutside)
         {
@@ -59,7 +63,7 @@ public class ContainerBoundaryController : MonoBehaviour
         isOutside = outsideObjects.Count > 0;
     }
 
-    void OnTriggerExit2D(Collider2D collision)
+    private void OnTriggerExit2D(Collider2D collision)
     {
         if (collision.gameObject.CompareTag("Enabled"))
         {
@@ -76,7 +80,7 @@ public class ContainerBoundaryController : MonoBehaviour
         }
     }
 
-    public void SetBoundaryPositionAndSize(Vector2 newPosition, Vector2 newSize)
+    public void SetBoundaryPositionAndSize(Vector2 newPosition, Vector2 newSize) // Установить размер границ и позицию
     {
         boundaryObject.transform.position = newPosition;
         boundaryCollider.size = newSize;

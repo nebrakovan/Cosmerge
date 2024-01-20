@@ -8,16 +8,19 @@ public class ScoreManager : MonoBehaviour
 {
     public static ScoreManager Instance { get; private set; }
 
-    [Header("Текст для отображения счета")]
-    [SerializeField] private TMP_Text scoreText; // Текст счета
-    [SerializeField] private TMP_Text highScoreText; // Текста для редактора
-
     [Header("Префаб временного счета и место, где будет храниться его пул")]
     [SerializeField] private TMP_Text tempScoreTextPrefab; // Префаб временного счета
     [SerializeField] private GameObject canvasPoolLocation; // Место храрнения пула в канвасе
 
+    [Header("Текст для отображения счета")]
+    [SerializeField] private TMP_Text scoreText; // Текст счета
+    [SerializeField] private TMP_Text highScoreText; // Текста для редактора
+
     [Header("Максимальный множеитель для комбо")]
     [SerializeField] private int maxComboMultiplier = 10; // Максимальное значение множителя комбо
+
+    [Header("Время на комбо")]
+    private float comboTimeLimit = 2f; // Время для комбо
 
     private HashSet<TMP_Text> tempScoreTextPool = new HashSet<TMP_Text>(); // Пул текста временного счета
 
@@ -25,9 +28,9 @@ public class ScoreManager : MonoBehaviour
     private int highScore = 0; // Рекорд
     private int comboMultiplier = 1; // Множитель комбо
     private float comboTimer = 0f; // Таймер для комбо
-    private float comboTimeLimit = 2f; // Время для комбо
 
-    void Awake()
+
+    private void Awake()
     {
         if (Instance != null && Instance != this)
         {
@@ -40,7 +43,7 @@ public class ScoreManager : MonoBehaviour
         LoadHighScore();
     }
 
-    void Update()
+    private void Update()
     {
         if (comboTimer > 0)
         {
@@ -61,16 +64,13 @@ public class ScoreManager : MonoBehaviour
         tempScoreText.gameObject.SetActive(true);
 
         Animator tempScoreAnimator = tempScoreText.GetComponent<Animator>();
-        // Запускаем анимацию для временного счета
         tempScoreAnimator.SetBool("Enlarge", true);
 
-        // Запускаем корутину, которая дождется окончания анимации
         StartCoroutine(WaitForAnimationToEnd(tempScoreText, tempScoreAnimator));
 
         score += points * comboMultiplier;
         UpdateScoreText();
 
-        // Проверка на новый рекорд
         if (score > highScore)
         {
             highScore = score;
@@ -78,18 +78,16 @@ public class ScoreManager : MonoBehaviour
             SaveHighScore();
         }
 
-        comboMultiplier = Mathf.Min(comboMultiplier * 2, maxComboMultiplier); // Удвоение множителя с ограничением
-        comboTimer = comboTimeLimit; // Сброс таймера комбо
+        comboMultiplier = Mathf.Min(comboMultiplier * 2, maxComboMultiplier);
+        comboTimer = comboTimeLimit;
     }
 
     private IEnumerator WaitForAnimationToEnd(TMP_Text tempScoreText, Animator tempScoreAnimator) // Дождаться конца анимации
     {
-        // Ожидание завершения анимации
         yield return new WaitWhile(() => tempScoreAnimator.GetCurrentAnimatorStateInfo(0).normalizedTime < 1f);
 
         tempScoreAnimator.SetBool("Enlarge", false);
 
-        // Скрываем текст после завершения анимации
         tempScoreText.gameObject.SetActive(false);
     }
 
