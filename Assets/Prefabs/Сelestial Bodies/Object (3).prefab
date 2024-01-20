@@ -13,9 +13,9 @@ GameObject:
   - component: {fileID: 8307747901202257696}
   - component: {fileID: 1731932218510718829}
   - component: {fileID: 1794415238604545613}
-  m_Layer: 5
+  m_Layer: 3
   m_Name: Object (3)
-  m_TagString: Player
+  m_TagString: Disabled
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -30,7 +30,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -14.23748, y: -0.80704427, z: 0}
-  m_LocalScale: {x: 2, y: 2, z: 2}
+  m_LocalScale: {x: 1.25, y: 1.25, z: 1.25}
   m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 0}
@@ -123,7 +123,7 @@ CircleCollider2D:
   m_GameObject: {fileID: 4528262843562759879}
   m_Enabled: 0
   m_Density: 1
-  m_Material: {fileID: 6200000, guid: feaa6e169cc1a774889e85afc8c03c51, type: 2}
+  m_Material: {fileID: 6200000, guid: 4a9db921def7a394a9ec5df608b6d30d, type: 2}
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0

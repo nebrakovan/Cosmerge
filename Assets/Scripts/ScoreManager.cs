@@ -19,7 +19,7 @@ public class ScoreManager : MonoBehaviour
     [Header("Максимальный множеитель для комбо")]
     [SerializeField] private int maxComboMultiplier = 10; // Максимальное значение множителя комбо
 
-    private List<TMP_Text> tempScoreTextPool = new List<TMP_Text>(); // Пул текста временного счета
+    private HashSet<TMP_Text> tempScoreTextPool = new HashSet<TMP_Text>(); // Пул текста временного счета
 
     private int score = 0; // Счет
     private int highScore = 0; // Рекорд

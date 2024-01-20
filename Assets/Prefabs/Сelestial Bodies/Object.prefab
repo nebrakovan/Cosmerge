@@ -13,9 +13,9 @@ GameObject:
   - component: {fileID: 8979378375163535181}
   - component: {fileID: 2227264997624695674}
   - component: {fileID: 7589788781893249791}
-  m_Layer: 5
+  m_Layer: 3
   m_Name: Object
-  m_TagString: Player
+  m_TagString: Disabled
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -123,7 +123,7 @@ CircleCollider2D:
   m_GameObject: {fileID: 124611018297092835}
   m_Enabled: 0
   m_Density: 1
-  m_Material: {fileID: 6200000, guid: feaa6e169cc1a774889e85afc8c03c51, type: 2}
+  m_Material: {fileID: 6200000, guid: 4a9db921def7a394a9ec5df608b6d30d, type: 2}
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0

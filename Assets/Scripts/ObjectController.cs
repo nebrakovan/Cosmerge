@@ -55,6 +55,9 @@ public class ObjectController : MonoBehaviour
         combinedObject.transform.position = spawnPosition;
         ActivateObject(combinedObject);
 
+        gameObject.tag = "Disbled";
+        otherObject.gameObject.tag = "Disabled";
+
         DeactivateAndReturnObject(this);
         DeactivateAndReturnObject(otherObjectController);
     }
@@ -77,5 +80,10 @@ public class ObjectController : MonoBehaviour
         collider.enabled = false;
         gameObject.SetActive(false);
         ObjectPool.Instance.ReturnObject(gameObject, objController.objectIndex);
+    }
+
+    private void OnEnable()
+    {
+        gameObject.tag = "Enabled";
     }
 }
