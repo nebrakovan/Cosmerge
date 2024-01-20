@@ -6,7 +6,7 @@ using Unity.VisualScripting;
 
 public class ScoreManager : MonoBehaviour
 {
-    public static ScoreManager Instance;
+    public static ScoreManager Instance { get; private set; }
 
     [Header("Текст для отображения счета")]
     [SerializeField] private TMP_Text scoreText; // Текст счета
@@ -86,8 +86,6 @@ public class ScoreManager : MonoBehaviour
     {
         // Ожидание завершения анимации
         yield return new WaitWhile(() => tempScoreAnimator.GetCurrentAnimatorStateInfo(0).normalizedTime < 1f);
-
-        Debug.Log("WaitForAnimationToEnd started");
 
         tempScoreAnimator.SetBool("Enlarge", false);
 

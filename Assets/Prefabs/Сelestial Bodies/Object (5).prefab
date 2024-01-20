@@ -13,9 +13,9 @@ GameObject:
   - component: {fileID: 5981019171796207911}
   - component: {fileID: 7150041177906993726}
   - component: {fileID: 5733963521945970261}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Object (5)
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -76,8 +76,8 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: -2413806693520163455, guid: a86470a33a6bf42c4b3595704624658b, type: 3}
-  m_Color: {r: 0, g: 1, b: 1, a: 1}
+  m_Sprite: {fileID: 303798061, guid: f03b496afac60cb40b60aefea540c2f0, type: 3}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -123,7 +123,7 @@ CircleCollider2D:
   m_GameObject: {fileID: 1232826617010233918}
   m_Enabled: 0
   m_Density: 1
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 6200000, guid: feaa6e169cc1a774889e85afc8c03c51, type: 2}
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0
@@ -162,6 +162,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   combinedObjectPrefab: {fileID: 0}
+  maxIndex: 5
   objectIndex: 5
   isCombining: 0
-  maxIndex: 5

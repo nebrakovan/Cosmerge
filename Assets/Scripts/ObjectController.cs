@@ -6,54 +6,54 @@ using UnityEngine.SceneManagement;
 
 public class ObjectController : MonoBehaviour
 {
-    [Header("Префаб объекта, который будет создаваться после слияния")]
-    [SerializeField] private GameObject mergedObjectPrefab; // Сборная конструкция объединенного объекта
+    [Header("Префаб объекта, который будет создаваться после комбинации")]
+    [SerializeField] private GameObject combinedObjectPrefab; // Сборная конструкция объединенного объекта
 
     [Header("Индекс этого объекта и последнего")]
     [SerializeField] private int maxIndex; // Максимальный индекс
     public int objectIndex; // Индекс объекта
 
-    [HideInInspector] public bool isMerging = false; // Происходит слияние
+    [HideInInspector] public bool isCombining = false; // Происходит объединение
 
     void OnCollisionEnter2D(Collision2D collision)
     {
         ObjectController otherObjectController = collision.gameObject.GetComponent<ObjectController>();
 
-        if (CanMergeWith(otherObjectController))
+        if (CanCombineWith(otherObjectController))
         {
-            StartMerging();
-            otherObjectController.StartMerging();
-            MergeObjects(collision.gameObject, otherObjectController);
+            StartCombining();
+            otherObjectController.StartCombining();
+            CombineObjects(collision.gameObject, otherObjectController);
         }
     }
 
-    private bool CanMergeWith(ObjectController otherObjectController) // Может объединяться с..
+    private bool CanCombineWith(ObjectController otherObjectController) // Может объединиться с..
     {
         return otherObjectController != null &&
                objectIndex == otherObjectController.objectIndex &&
                objectIndex < maxIndex &&
-               !isMerging &&
-               !otherObjectController.isMerging;
+               !isCombining &&
+               !otherObjectController.isCombining;
     }
 
-    private void StartMerging() // Начать слияние
+    private void StartCombining() // Начать объединение
     {
-        isMerging = true;
+        isCombining = true;
     }
 
-    private void MergeObjects(GameObject otherObject, ObjectController otherObjectController) // Объединить объекты
+    private void CombineObjects(GameObject otherObject, ObjectController otherObjectController) // Объединить объекты
     {
         Vector3 spawnPosition = (transform.position + otherObject.transform.position) / 2;
         int nextIndex = objectIndex + 1;
 
         ScoreManager.Instance.AddScore(5, spawnPosition);
 
-        GameObject mergedObject = ObjectPool.Instance.GetObject(nextIndex);
-        ObjectController mergedObjectController = mergedObject.GetComponent<ObjectController>();
-        mergedObjectController.isMerging = false;
+        GameObject combinedObject = ObjectPool.Instance.GetObject(nextIndex);
+        ObjectController combinedObjectController = combinedObject.GetComponent<ObjectController>();
+        combinedObjectController.isCombining = false;
 
-        mergedObject.transform.position = spawnPosition;
-        ActivateObject(mergedObject);
+        combinedObject.transform.position = spawnPosition;
+        ActivateObject(combinedObject);
 
         DeactivateAndReturnObject(this);
         DeactivateAndReturnObject(otherObjectController);

@@ -85,7 +85,7 @@ public class PlayerController : MonoBehaviour
         currentObject.SetActive(true);
 
         ObjectController currentObjectController = currentObject.GetComponent<ObjectController>();
-        currentObjectController.isMerging = false;
+        currentObjectController.isCombining = false;
 
         SelectRandomObject();
         UpdateNextObjectDisplay();
