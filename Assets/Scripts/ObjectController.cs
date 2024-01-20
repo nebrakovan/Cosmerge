@@ -51,7 +51,7 @@ public class ObjectController : MonoBehaviour
         combinedObject.transform.position = spawnPosition;
         ActivateObject(combinedObject);
 
-        gameObject.tag = "Disbled";
+        gameObject.tag = "Disabled";
         otherObject.gameObject.tag = "Disabled";
 
         DeactivateAndReturnObject(this);

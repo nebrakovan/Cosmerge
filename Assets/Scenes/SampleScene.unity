@@ -132,6 +132,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 230844464}
+  - component: {fileID: 230844465}
   m_Layer: 0
   m_Name: Game Manager
   m_TagString: Untagged
@@ -154,6 +155,18 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &230844465
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 230844463}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 46f104c5c208ea644b0ad02fa894cad7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &519420028
 GameObject:
   m_ObjectHideFlags: 0
@@ -215,7 +228,7 @@ Camera:
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 5
+  orthographic size: 10
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -273,7 +286,7 @@ Transform:
   m_GameObject: {fileID: 531873738}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: -4.5, z: 0}
+  m_LocalPosition: {x: 0, y: -9.5, z: 0}
   m_LocalScale: {x: 20, y: 0.2, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -970,10 +983,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9127a45385e47f945afb6b892324d573, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  scoreText: {fileID: 1847092760}
-  highScoreText: {fileID: 1918174239}
   tempScoreTextPrefab: {fileID: 8577243907692852912, guid: cc5d2acff6bb5ac4d8e589faac6c4229, type: 3}
   canvasPoolLocation: {fileID: 2039306415}
+  scoreText: {fileID: 1847092760}
+  highScoreText: {fileID: 1918174239}
   maxComboMultiplier: 5
 --- !u!4 &1626637605
 Transform:
@@ -1163,8 +1176,8 @@ MonoBehaviour:
   objectSpawnXClamp: {x: -5, y: 5}
   objectSpawnYZ: {x: 3, y: 0}
   nextObjectImage: {fileID: 713112426}
-  objectMoveSpeed: 40
-  spawnDelay: 0
+  objectMoveSpeed: 1
+  spawnDelay: 0.5
   excludedObjectsToSpawn: 2
 --- !u!4 &1862684795
 Transform:
@@ -1326,7 +1339,6 @@ GameObject:
   - component: {fileID: 1968795365}
   - component: {fileID: 1968795366}
   - component: {fileID: 1968795367}
-  - component: {fileID: 1968795368}
   m_Layer: 0
   m_Name: Container Boundary
   m_TagString: Untagged
@@ -1406,26 +1418,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ec31f778984dc304c99f22db2864c744, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  boundaryObject: {fileID: 1968795362}
+  currentBorders: {x: 10, y: 12}
+  currentBordersPosition: {x: 0, y: -3.5}
   objectLayer:
     serializedVersion: 2
     m_Bits: 8
   timeToLose: 3
-  currentBorders: {x: 10, y: 9}
-  currentPosition: {x: 0, y: 0}
-  boundaryObject: {fileID: 1968795362}
-  isOutside: 0
---- !u!114 &1968795368
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1968795362}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 46f104c5c208ea644b0ad02fa894cad7, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &2039306415
 GameObject:
   m_ObjectHideFlags: 0
@@ -1597,11 +1596,11 @@ SceneRoots:
   m_Roots:
   - {fileID: 689698110}
   - {fileID: 519420032}
+  - {fileID: 815843265}
   - {fileID: 1107536707}
   - {fileID: 652503409}
-  - {fileID: 815843265}
   - {fileID: 1862684795}
   - {fileID: 891934502}
-  - {fileID: 1626637605}
   - {fileID: 1968795365}
+  - {fileID: 1626637605}
   - {fileID: 230844464}
