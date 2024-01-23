@@ -80,6 +80,7 @@ public class PlayerController : MonoBehaviour
     private void SpawnObject() // Создание объекта
     {
         spawnPosition = GetObjectSpawnPosition();
+
         currentObject = ObjectPool.Instance.GetObject(selectedIndex);
         currentObject.transform.position = spawnPosition;
         currentObject.SetActive(true);
@@ -91,7 +92,6 @@ public class PlayerController : MonoBehaviour
         UpdateNextObjectDisplay();
 
         canSpawnNext = false;
-        StartCoroutine(EnableSpawnAfterDelay());
     }
 
     private Vector3 GetObjectSpawnPosition() // Получить поизицию для создания
@@ -146,6 +146,10 @@ public class PlayerController : MonoBehaviour
         rb.bodyType = RigidbodyType2D.Dynamic;
         CircleCollider2D collider = currentObject.GetComponent<CircleCollider2D>();
         collider.enabled = true;
+
+        ContainerController.Instance.AddObjectOutside(currentObject);
+
+        StartCoroutine(EnableSpawnAfterDelay());
 
         currentObject = null;
     }

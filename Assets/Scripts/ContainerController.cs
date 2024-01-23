@@ -18,10 +18,11 @@ public class ContainerController : MonoBehaviour
     [SerializeField] private TMP_Text timeToLoseText;
     [SerializeField] private float timeToLose = 5f; // Время для проигрыша
 
+    private bool isOutside = false; // Снаружи
+
     private HashSet<Collider2D> outsideObjects = new HashSet<Collider2D>(); // Объекты снаружи
 
     private float timer = 0f; // Таймер
-    private bool isOutside = false; // Снаружи
 
     private void Awake()
     {
@@ -72,5 +73,11 @@ public class ContainerController : MonoBehaviour
         {
             outsideObjects.Remove(collision);
         }
+    }
+
+    public void AddObjectOutside(GameObject currentObject)
+    {
+        Collider2D collision = currentObject.GetComponent<Collider2D>();
+        outsideObjects.Add(collision);
     }
 }
