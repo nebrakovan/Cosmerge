@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 2227264997624695674}
   - component: {fileID: 7589788781893249791}
   m_Layer: 3
-  m_Name: Object
+  m_Name: Object (0)
   m_TagString: Disabled
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -164,4 +164,5 @@ MonoBehaviour:
   combinedObjectPrefab: {fileID: 85337081653663063, guid: 0beaca2b3757ef145803cc16824477b2, type: 3}
   maxIndex: 5
   objectIndex: 0
+  points: 3
   isCombining: 0

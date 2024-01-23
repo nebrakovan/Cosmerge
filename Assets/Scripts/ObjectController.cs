@@ -13,6 +13,8 @@ public class ObjectController : MonoBehaviour
     [SerializeField] private int maxIndex; // Максимальный индекс
     public int objectIndex; // Индекс объекта
 
+    [Header("Количество очков за объединение")]
+    [SerializeField] private int points;
     [HideInInspector] public bool isCombining = false; // Происходит объединение
 
     void OnCollisionEnter2D(Collision2D collision)
@@ -42,7 +44,7 @@ public class ObjectController : MonoBehaviour
         Vector3 spawnPosition = (transform.position + otherObject.transform.position) / 2;
         int nextIndex = objectIndex + 1;
 
-        ScoreManager.Instance.AddScore(5, spawnPosition);
+        ScoreManager.Instance.AddScore(points, spawnPosition);
 
         GameObject combinedObject = ObjectPool.Instance.GetObject(nextIndex);
         ObjectController combinedObjectController = combinedObject.GetComponent<ObjectController>();

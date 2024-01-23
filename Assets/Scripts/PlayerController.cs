@@ -12,7 +12,7 @@ public class PlayerController : MonoBehaviour
 
     [Header("Ограничение места спавна")]
     [SerializeField] private Vector2 objectSpawnXClamp = new Vector2(-5f, 5f); // Зажим X для создания объекта
-    [SerializeField] private Vector2 objectSpawnYZ = new Vector2(0f, 0f); // Зажим Y для создания объекта
+    [SerializeField] private Vector2 objectSpawnYClamp = new Vector2(-5f, 5f); // Зажим Y для создания объекта
 
     [Header("Картинка для отображения следующего объекта")]
     [SerializeField] private Image nextObjectImage;// Изображение следующего объекта
@@ -98,8 +98,8 @@ public class PlayerController : MonoBehaviour
     {
         Vector3 mousePos = mainCamera.ScreenToWorldPoint(Input.mousePosition);
         mousePos.x = Mathf.Clamp(mousePos.x, objectSpawnXClamp.x, objectSpawnXClamp.y);
-        mousePos.y = objectSpawnYZ.x;
-        mousePos.z = objectSpawnYZ.y;
+        mousePos.y = Mathf.Clamp(mousePos.y, transform.position.y + objectSpawnYClamp.x, transform.position.y + objectSpawnYClamp.y);
+        mousePos.z = transform.position.z;
         return mousePos;
     }
 
@@ -142,9 +142,4 @@ public class PlayerController : MonoBehaviour
         currentObject = null;
     }
 
-  
-
-   
-
-  
 }

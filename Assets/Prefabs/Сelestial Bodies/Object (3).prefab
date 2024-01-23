@@ -164,4 +164,5 @@ MonoBehaviour:
   combinedObjectPrefab: {fileID: 6455046712176748956, guid: 606cb448702dc9b45a3f25f915f2335b, type: 3}
   maxIndex: 5
   objectIndex: 3
+  points: 15
   isCombining: 0

@@ -3,25 +3,20 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using UnityEngine;
 
-public class ContainerBoundaryController : MonoBehaviour
+public class ContainerController : MonoBehaviour
 {
-    public static ContainerBoundaryController Instance { get; private set; }
+    public static ContainerController Instance { get; private set; }
 
-    [Header("Объект с границами")]
-    [SerializeField] private GameObject boundaryObject; // Объект границ
-
-    [Header("Настройки границ емкости")]
-    [SerializeField] private Vector2 currentBorders; // Текущие границы
-    [SerializeField] private Vector2 currentBordersPosition; // Текущая позиция границ
+    [Header("Объект емкости")]
+    [SerializeField] private GameObject containerObject; // Объект емкости
 
     [Header("Слой игрового объекта")]
     [SerializeField] private LayerMask objectLayer; // Слой объекта
 
-    [Header("Время для проигрыша")]
+    [Header("Время до проигрыша")]
     [SerializeField] private float timeToLose = 5f; // Время для проигрыша
 
     private HashSet<Collider2D> outsideObjects = new HashSet<Collider2D>(); // Объекты снаружи
-    private BoxCollider2D boundaryCollider; // Коллайдер границ
 
     private float timer = 0f; // Таймер
     private bool isOutside = false; // Снаружи
@@ -33,16 +28,8 @@ public class ContainerBoundaryController : MonoBehaviour
             Destroy(gameObject);
             return;
         }
+
         Instance = this;
-
-        boundaryCollider = boundaryObject.GetComponent<BoxCollider2D>();
-        if (boundaryCollider == null)
-        {
-            boundaryCollider = boundaryObject.AddComponent<BoxCollider2D>();
-        }
-
-        SetBoundaryPositionAndSize(currentBordersPosition, currentBorders);
-
     }
 
     private void Update()
@@ -52,7 +39,9 @@ public class ContainerBoundaryController : MonoBehaviour
             timer += Time.deltaTime;
             if (timer >= timeToLose)
             {
-                GameManager.Instance.GameOver();
+                Debug.Log("Игра окончена");
+
+                // return;
             }
         }
         else
@@ -78,12 +67,5 @@ public class ContainerBoundaryController : MonoBehaviour
         {
             outsideObjects.Remove(collision);
         }
-    }
-
-    public void SetBoundaryPositionAndSize(Vector2 newPosition, Vector2 newSize) // Установить размер границ и позицию
-    {
-        boundaryObject.transform.position = newPosition;
-        boundaryCollider.size = newSize;
-        boundaryCollider.offset = Vector2.zero;
     }
 }

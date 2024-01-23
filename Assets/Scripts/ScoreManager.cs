@@ -16,11 +16,12 @@ public class ScoreManager : MonoBehaviour
     [SerializeField] private TMP_Text scoreText; // Текст счета
     [SerializeField] private TMP_Text highScoreText; // Текста для редактора
 
-    [Header("Максимальный множеитель для комбо")]
+    [Header("Максимальный множеитель для комбо и текст для его отображения")]
+    [SerializeField] private TMP_Text comboMultiplierText;
     [SerializeField] private int maxComboMultiplier = 10; // Максимальное значение множителя комбо
 
     [Header("Время на комбо")]
-    private float comboTimeLimit = 2f; // Время для комбо
+    [SerializeField]private float comboTimeLimit = 2f; // Время на комбо
 
     private HashSet<TMP_Text> tempScoreTextPool = new HashSet<TMP_Text>(); // Пул текста временного счета
 
@@ -51,6 +52,7 @@ public class ScoreManager : MonoBehaviour
             if (comboTimer <= 0)
             {
                 comboMultiplier = 1; 
+                comboMultiplierText.text = "x" + comboMultiplier;
             }
         }
     }
@@ -62,6 +64,8 @@ public class ScoreManager : MonoBehaviour
         tempScoreText.text = "+" + points * comboMultiplier;
         tempScoreText.transform.position = Camera.main.WorldToScreenPoint(position);
         tempScoreText.gameObject.SetActive(true);
+
+        comboMultiplierText.text = "x" + comboMultiplier;
 
         Animator tempScoreAnimator = tempScoreText.GetComponent<Animator>();
         tempScoreAnimator.SetBool("Enlarge", true);
@@ -78,7 +82,7 @@ public class ScoreManager : MonoBehaviour
             SaveHighScore();
         }
 
-        comboMultiplier = Mathf.Min(comboMultiplier * 2, maxComboMultiplier);
+        comboMultiplier = Mathf.Min(comboMultiplier + 1, maxComboMultiplier);
         comboTimer = comboTimeLimit;
     }
 
