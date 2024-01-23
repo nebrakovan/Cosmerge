@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
+using TMPro;
 using UnityEngine;
 
 public class ContainerController : MonoBehaviour
@@ -13,7 +14,8 @@ public class ContainerController : MonoBehaviour
     [Header("Слой игрового объекта")]
     [SerializeField] private LayerMask objectLayer; // Слой объекта
 
-    [Header("Время до проигрыша")]
+    [Header("Время до проигрыша и текст для его отображения")]
+    [SerializeField] private TMP_Text timeToLoseText;
     [SerializeField] private float timeToLose = 5f; // Время для проигрыша
 
     private HashSet<Collider2D> outsideObjects = new HashSet<Collider2D>(); // Объекты снаружи
@@ -36,17 +38,20 @@ public class ContainerController : MonoBehaviour
     {
         if (isOutside)
         {
+            timeToLoseText.enabled = true;
+            timeToLoseText.text = "" + Mathf.Round(timer);
+
             timer += Time.deltaTime;
             if (timer >= timeToLose)
             {
                 Debug.Log("Игра окончена");
-
                 // return;
             }
         }
         else
         {
             timer = 0f;
+            timeToLoseText.enabled = false;
         }
 
         isOutside = outsideObjects.Count > 0;

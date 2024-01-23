@@ -114,7 +114,15 @@ public class PlayerController : MonoBehaviour
         float randomValue = Random.value * totalWeight;
         float currentSum = 0;
 
-        selectedIndex = weights.TakeWhile(weight => (currentSum += weight) < randomValue).Count();
+        for (int i = 0; i < weights.Length; i++)
+        {
+            currentSum += weights[i];
+            if (randomValue <= currentSum)
+            {
+                selectedIndex = i;
+                break;
+            }
+        }
 
         nextObject = objects[selectedIndex];
         nextObjectSpriteRenderer = nextObject.GetComponent<SpriteRenderer>();

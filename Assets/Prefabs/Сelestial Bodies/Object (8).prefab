@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &1232826617010233918
+--- !u!1 &6966321243219838974
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,40 +8,40 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 3219688044721301102}
-  - component: {fileID: 2265518265822242398}
-  - component: {fileID: 5981019171796207911}
-  - component: {fileID: 7150041177906993726}
-  - component: {fileID: 5733963521945970261}
+  - component: {fileID: 216082672406296849}
+  - component: {fileID: 4071755746715973406}
+  - component: {fileID: 3519922677636668541}
+  - component: {fileID: 1375070570865127389}
+  - component: {fileID: 8041734708578455910}
   m_Layer: 3
-  m_Name: Object (5)
+  m_Name: Object (8)
   m_TagString: Disabled
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &3219688044721301102
+--- !u!4 &216082672406296849
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1232826617010233918}
+  m_GameObject: {fileID: 6966321243219838974}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 3.6, y: 3.6, z: 3.6}
+  m_LocalScale: {x: 5.6, y: 5.6, z: 5.6}
   m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!212 &2265518265822242398
+--- !u!212 &4071755746715973406
 SpriteRenderer:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1232826617010233918}
+  m_GameObject: {fileID: 6966321243219838974}
   m_Enabled: 1
   m_CastShadows: 0
   m_ReceiveShadows: 0
@@ -76,7 +76,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 303798061, guid: f03b496afac60cb40b60aefea540c2f0, type: 3}
+  m_Sprite: {fileID: -566776037, guid: f03b496afac60cb40b60aefea540c2f0, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -87,14 +87,14 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!50 &5981019171796207911
+--- !u!50 &3519922677636668541
 Rigidbody2D:
   serializedVersion: 4
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1232826617010233918}
+  m_GameObject: {fileID: 6966321243219838974}
   m_BodyType: 1
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
@@ -114,13 +114,13 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
---- !u!58 &7150041177906993726
+--- !u!58 &1375070570865127389
 CircleCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1232826617010233918}
+  m_GameObject: {fileID: 6966321243219838974}
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 6200000, guid: 4a9db921def7a394a9ec5df608b6d30d, type: 2}
@@ -149,20 +149,20 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 0.5
---- !u!114 &5733963521945970261
+--- !u!114 &8041734708578455910
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1232826617010233918}
+  m_GameObject: {fileID: 6966321243219838974}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: c8e4b5807e5faa24f8293fd1f804008b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  combinedObjectPrefab: {fileID: 7366112909869796430, guid: 501dc6cdd96952e4283a8c5e9892470d, type: 3}
+  combinedObjectPrefab: {fileID: 3785103610095493813, guid: e89d253969ec79f4eaec0dbcd35c39c3, type: 3}
   maxIndex: 10
-  objectIndex: 5
+  objectIndex: 8
   points: 100
   isCombining: 0
