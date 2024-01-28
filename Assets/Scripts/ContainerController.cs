@@ -45,8 +45,8 @@ public class ContainerController : MonoBehaviour
             timer += Time.deltaTime;
             if (timer >= timeToLose)
             {
-                Debug.Log("Игра окончена");
-                // return;
+                GameManager.Instance.GameOver();
+                return;
             }
         }
         else
@@ -79,5 +79,14 @@ public class ContainerController : MonoBehaviour
     {
         Collider2D collision = currentObject.GetComponent<Collider2D>();
         outsideObjects.Add(collision);
+    }
+
+    public void RemoveObjectOutside(GameObject currentObject)
+    {
+        Collider2D collider = currentObject.GetComponent<Collider2D>();
+        if (collider != null && outsideObjects.Contains(collider))
+        {
+            outsideObjects.Remove(collider); // Remove the collider from the HashSet
+        }
     }
 }

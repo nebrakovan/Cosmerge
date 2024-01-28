@@ -58,23 +58,31 @@ public class PlayerController : MonoBehaviour
 
     private void Update()
     {
-        if (currentObject == null && Input.GetMouseButtonDown(0) && canSpawnNext)
+        if (GameManager.Instance.CurrentState != GameManager.GameState.Paused)
         {
-            SpawnObject();
-        }
-
-        if (currentObject != null)
-        {
-            if (Input.GetMouseButton(0))
+            if (currentObject == null && Input.GetMouseButtonDown(0) && canSpawnNext) // Perform action
             {
-                MoveObjectToCursor();
+                SpawnObject();
             }
 
-            if (Input.GetMouseButtonUp(0))
+            if (currentObject != null)
             {
-                ActivateObjectPhysics();
+                if (Input.GetMouseButton(0))
+                {
+                    MoveObjectToCursor();
+                }
+
+                if (Input.GetMouseButtonUp(0))
+                {
+                    ActivateObjectPhysics();
+                }
             }
         }
+
+        if (Input.GetKeyDown(KeyCode.Escape))
+            GameManager.Instance.TogglePause();
+
+
     }
 
     private void SpawnObject() // Создание объекта
@@ -83,6 +91,7 @@ public class PlayerController : MonoBehaviour
 
         currentObject = ObjectPool.Instance.GetObject(selectedIndex);
         currentObject.transform.position = spawnPosition;
+        currentObject.tag = "Enabled";
         currentObject.SetActive(true);
 
         ObjectController currentObjectController = currentObject.GetComponent<ObjectController>();

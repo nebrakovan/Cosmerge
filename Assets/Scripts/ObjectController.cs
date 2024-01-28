@@ -53,9 +53,6 @@ public class ObjectController : MonoBehaviour
         combinedObject.transform.position = spawnPosition;
         ActivateObject(combinedObject);
 
-        gameObject.tag = "Disabled";
-        otherObject.gameObject.tag = "Disabled";
-
         DeactivateAndReturnObject(this);
         DeactivateAndReturnObject(otherObjectController);
     }
@@ -66,6 +63,8 @@ public class ObjectController : MonoBehaviour
         var collider = obj.GetComponent<CircleCollider2D>();
         rb.bodyType = RigidbodyType2D.Dynamic;
         collider.enabled = true;
+        obj.tag = "Enabled";
+        ContainerController.Instance.AddObjectOutside(obj);
         obj.SetActive(true);
     }
 
@@ -76,12 +75,9 @@ public class ObjectController : MonoBehaviour
         var collider = gameObject.GetComponent<CircleCollider2D>();
         rb.bodyType = RigidbodyType2D.Kinematic;
         collider.enabled = false;
+        gameObject.tag = "Disabled";
+        ContainerController.Instance.RemoveObjectOutside(gameObject);
         gameObject.SetActive(false);
         ObjectPool.Instance.ReturnObject(gameObject, objController.objectIndex);
-    }
-
-    private void OnEnable()
-    {
-        gameObject.tag = "Enabled";
     }
 }
